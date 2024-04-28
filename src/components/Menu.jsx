@@ -12,7 +12,7 @@ const Menu = () => {
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='ms-auto'>
-            <NavLink className='nav-link' to='/carrito'>🛒${total}</NavLink>
+            <NavLink className='nav-link active' to='/carrito'>🛒${total}</NavLink>
           </Nav>
         </Navbar.Collapse>
       </Container>
