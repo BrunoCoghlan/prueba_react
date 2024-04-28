@@ -1,7 +1,10 @@
+import { useContext } from 'react'
 import { Container, Nav, Navbar } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
+import { PizzaContext } from '../context/PizzaContext'
 
 const Menu = () => {
+  const { total } = useContext(PizzaContext)
   return (
     <Navbar className='menu' data-bs-theme='dark'>
       <Container>
@@ -9,7 +12,7 @@ const Menu = () => {
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='ms-auto'>
-            <NavLink className='nav-link' to='/carrito'>🛒aca iria un total, si lo tubiera!</NavLink>
+            <NavLink className='nav-link' to='/carrito'>🛒${total}</NavLink>
           </Nav>
         </Navbar.Collapse>
       </Container>

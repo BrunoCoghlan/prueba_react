@@ -6,12 +6,11 @@ const Descripcion = ({ pizzas }) => {
   // se extrae el id del URl
   const { id } = useParams()
   // se invoca el arreglo de pizzas
-  const { capitalizar } = useContext(PizzaContext)
+  const { capitalizar, agregar } = useContext(PizzaContext)
   // se busca la pizza seleccionada en un useState
   const searchPizzaIndex = pizzas?.findIndex((pizza) => {
     return pizza.id === id
   })
-  console.log(searchPizzaIndex)
   return (
     <div className='card m-3 border d-flex flex-lg-row '>
       <img src={pizzas[searchPizzaIndex].img} className='card-img-top' alt={pizzas[searchPizzaIndex].name} />
@@ -26,7 +25,7 @@ const Descripcion = ({ pizzas }) => {
         </ul>
         <p className='fs-3'>Precio: ${pizzas[searchPizzaIndex].price}</p>
         <div className='d-flex justify-content-end'>
-          <button className='btn btn-danger'>Añadir 🛒</button>
+          <button onClick={() => agregar(pizzas[searchPizzaIndex].id)} className='btn btn-danger'>Añadir 🛒</button>
         </div>
       </div>
     </div>

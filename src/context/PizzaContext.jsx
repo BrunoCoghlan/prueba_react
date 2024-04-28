@@ -7,6 +7,7 @@ const PizzaProvider = ({ children }) => {
   // invocando useStates
   const [pizzas, setPizzas] = useState()
   const [addCart, setAddCart] = useState([])
+  const [total, setTotal] = useState()
   // declaracion funcion para agregar producto al carrito
   const agregar = (id) => {
     // buscando el objeto con el id pasado
@@ -41,12 +42,33 @@ const PizzaProvider = ({ children }) => {
     const i = addCart?.findIndex((pizza) => {
       return pizza.id === id
     })
+    if (addCart[i].count <= 1) {
+      return (
+        setAddCart(() => {
+          addCart.splice(i, 1)
+          return ([...addCart])
+        })
+      )
+    }
     setAddCart((addCart) => {
       addCart[i].count--
       return ([...addCart])
     })
   }
-
+  // funcion para calcular el total a pagar
+  useEffect(() => {
+    let total = 0
+    addCart.forEach((producto) => {
+      total += producto.count * producto.price
+    })
+    setTotal(total)
+  }, [addCart])
+  // funcion de pagado
+  const pagado = () => {
+    if (addCart.length === 0) return window.alert('Que vas a pagar?, aun no elijes nada! vuelve con algo para la proxima')
+    setAddCart([])
+    window.alert('tu pedido llegara en 30 minutos o es gratis!')
+  }
   // invocando al navigate para utilizarlo en cualquier view/layout
   const navigate = useNavigate()
   // declaracion de funcion getPizza para petizion asicrona a la API (local en este caso), se utiliza el manejo de error con try y catch.
@@ -73,7 +95,9 @@ const PizzaProvider = ({ children }) => {
     agregar,
     addCart,
     disminuir,
-    aumentar
+    aumentar,
+    total,
+    pagado
 
   }
   return (
